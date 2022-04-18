@@ -1,0 +1,136 @@
+*{
+    margin: 10px;
+    padding:0px;
+    text-align: justify;
+    font-family: 'calibri';
+    
+}
+
+.datos{
+       font-size:  0.9em;
+       position:static;
+       text-justify: auto;
+       line-height: 2px;
+       }
+
+ul li::marker {
+        color: white;
+        text-align: left;
+      }
+
+.nombre {
+    margin-top: 20px;
+    font-size:   2.5em;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.69);
+    
+}
+
+.perfil{
+    border-top:2px solid rgba(0, 0, 0, 0.453);
+    font-size:   1em;
+    text-align: justify;
+    border-bottom:2px solid rgba(0, 0, 0, 0.453);
+}
+
+
+.subtitulo{
+    font-size:   1.5em;;
+    margin-bottom: 5px;
+    font-weight: 700;
+    margin-left: 0px;
+    margin-top: 0px;
+    color: rgba(0, 0, 0, 1);
+}
+
+.institucion{    
+    font-size:   1em;
+    line-height: 1em;
+    font-weight: 700;
+    margin-left: 0px;
+            margin-top: 0px;
+    color: rgba(0, 57, 148, 0.69);}
+
+.cargo{    
+        font-size: 1em;
+        line-height: 10px;
+        padding-top: 0px;
+        font-weight: 700;
+        margin-left: 0px;
+        margin-top: 0px;
+        color: rgb(3, 3, 3);}
+
+.periodo{    
+            font-size: 1em;
+            line-height: 15px;
+            margin-left: 0px;
+            margin-top: 0px;
+            padding-top: 0px;
+            color: rgb(3, 3, 3);}
+
+.detalle{    
+                font-size:   0.9em;
+                color: rgb(3, 3, 3);
+                text-align: justify;
+                margin-left: 10px;
+                /*
+                margin-top: 0px;
+                padding:0px;
+                height: 0px;
+                visibility: hidden;*/
+            }
+
+.combine{
+    display : flex;
+    margin-left:0px;
+    margin-top: 0px;
+}
+
+.grado{ font-size:   0.80em;
+    line-height: 0.80em;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.69);}
+
+
+.item{
+    margin-left: 0px;
+    margin-top: 20px;
+}
+
+.item-no{
+    margin-left: 0px;
+    margin-top: 0px;
+    padding:0px;
+    height: 0px;
+    visibility: hidden;
+}
+
+.detalle-no{
+    margin-left: 0px;
+    margin-top: 0px;
+    padding:0px;
+    height: 0px;
+    visibility: hidden;}
+
+hr { width: 100px;
+   border: 1px solid rgba(0, 0, 0, 0.193);
+   
+}
+
+.contenido{width: 75%;
+    float: left;
+    position: relative;
+    height: auto;
+    margin-left: 0px;
+    margin-top: 0px;
+    padding:0px;
+    height: 0px;}
+.menu {width: 20%; 
+    float: left;
+    position: relative;
+    height: auto;
+    margin-left: 0px;
+    margin-top: 0px;
+    padding:0px;
+    height: 0px;
+      }
