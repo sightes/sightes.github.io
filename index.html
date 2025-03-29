@@ -654,7 +654,11 @@
     <script>
         document.querySelectorAll('.section').forEach(section => {
             section.addEventListener('click', (e) => {
-                if (e.target.tagName !== 'A' && !e.target.closest('.skill-category')) {
+                if (e.target.tagName !== 'A' && 
+                    !e.target.closest('.skill-category') && 
+                    !e.target.closest('a') && 
+                    !e.target.closest('.contact-info') &&
+                    !e.target.closest('header')) {
                     const content = section.querySelector('.section-content');
                     content.classList.toggle('collapsed');
                 }
@@ -663,7 +667,7 @@
 
         document.querySelectorAll('.skill-category').forEach(category => {
             category.addEventListener('click', (e) => {
-                if (e.target.tagName !== 'A') {
+                if (e.target.tagName !== 'A' && !e.target.closest('a')) {
                     e.stopPropagation();
                     category.classList.toggle('collapsed');
                 }
