@@ -58,8 +58,9 @@
             padding: 3rem 0;
             text-align: center;
             position: relative;
-            overflow: hidden;
+            overflow: visible;
             border-bottom: 3px solid var(--secondary-color);
+            z-index: 10;
         }
 
         header::before {
@@ -277,6 +278,8 @@
             justify-content: center;
             gap: 2rem;
             margin-top: 1rem;
+            position: relative;
+            z-index: 10;
         }
 
         .contact-info a {
@@ -287,6 +290,11 @@
             border-radius: 20px;
             background: var(--secondary-color);
             border: 1px solid var(--accent-3);
+            position: relative;
+            z-index: 10;
+            pointer-events: auto;
+            cursor: pointer;
+            display: inline-block;
         }
 
         .contact-info a:hover {
@@ -657,8 +665,8 @@
                 if (e.target.tagName !== 'A' && 
                     !e.target.closest('.skill-category') && 
                     !e.target.closest('a') && 
-                    !e.target.closest('.contact-info') &&
-                    !e.target.closest('header')) {
+                    !e.target.closest('header') &&
+                    !e.target.closest('.contact-info')) {
                     const content = section.querySelector('.section-content');
                     content.classList.toggle('collapsed');
                 }
@@ -672,6 +680,11 @@
                     category.classList.toggle('collapsed');
                 }
             });
+        });
+
+        // Prevenir que los clics en el header afecten a las secciones
+        document.querySelector('header').addEventListener('click', (e) => {
+            e.stopPropagation();
         });
     </script>
 </body>
