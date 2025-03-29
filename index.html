@@ -1,10 +1,674 @@
 <!DOCTYPE html>
-<html>
-   <head>
-      <title>HTML Meta Tag</title>
-      <meta http-equiv = "refresh" content = "2; url = https://github.com/sightes" />
-   </head>
-   <body>
-      <p>Espera un momento !</p>
-   </body>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sebastian Ulloa - CV</title>
+    <style>
+        :root {
+            --primary-color: #272822;
+            --secondary-color: #f92672;
+            --text-color: #f8f8f2;
+            --light-bg: #1e1f1c;
+            --dark-bg: #1e1f1c;
+            --card-bg: #272822;
+            --hover-color: #2d2e29;
+            --accent-1: #a6e22e;
+            --accent-2: #66d9ef;
+            --accent-3: #fd971f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Fira Code', 'Consolas', monospace;
+        }
+
+        body {
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--dark-bg);
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
+        }
+
+        .left-column {
+            position: sticky;
+            top: 2rem;
+            height: fit-content;
+        }
+
+        .right-column {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        header {
+            background: var(--primary-color);
+            color: var(--text-color);
+            padding: 3rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border-bottom: 3px solid var(--secondary-color);
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--accent-1), var(--accent-2));
+            opacity: 0.05;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 2.8rem;
+            margin-bottom: 1.5rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            color: var(--accent-1);
+            position: relative;
+            z-index: 2;
+        }
+
+        header p {
+            font-size: 1.4rem;
+            color: var(--accent-2);
+            margin-bottom: 2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .profile-img {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin-bottom: 1rem;
+            border: 5px solid var(--accent-2);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 0 20px rgba(102, 217, 239, 0.3);
+        }
+
+        .profile-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(102, 217, 239, 0.5);
+        }
+
+        .section {
+            background: var(--card-bg);
+            padding: 2rem;
+            margin: 2rem 0;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            border: 1px solid var(--accent-3);
+            position: relative;
+            z-index: 2;
+        }
+
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+            border-color: var(--accent-2);
+        }
+
+        h2 {
+            color: var(--accent-1);
+            margin-bottom: 1.5rem;
+            border-bottom: 2px solid var(--accent-2);
+            padding-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-family: 'Fira Code', monospace;
+        }
+
+        h2::after {
+            content: '▼';
+            font-size: 0.8em;
+            transition: transform 0.3s ease;
+            color: var(--accent-2);
+        }
+
+        .section-content {
+            max-height: 5000px;
+            overflow: visible;
+            transition: max-height 0.5s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-content.collapsed {
+            max-height: 0;
+            overflow: hidden;
+        }
+
+        .skills-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .skill-category {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            border: 1px solid var(--accent-3);
+            margin-bottom: 0;
+        }
+
+        .skill-category:hover {
+            transform: scale(1.02);
+            border-color: var(--accent-2);
+        }
+
+        .skill-category h3 {
+            color: var(--accent-1);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+            border-bottom: 2px solid var(--accent-2);
+            padding-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .skill-category h3::after {
+            content: '▼';
+            font-size: 0.8em;
+            transition: transform 0.3s ease;
+            color: var(--accent-2);
+        }
+
+        .skill-category.collapsed h3::after {
+            transform: rotate(-90deg);
+        }
+
+        .skill-category ul {
+            list-style: none;
+            padding: 0;
+            max-height: 500px;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .skill-category.collapsed ul {
+            max-height: 0;
+        }
+
+        .experience-item {
+            background: var(--light-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: 1px solid var(--accent-3);
+            display: block;
+            width: 100%;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-content.collapsed .experience-item {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .experience-item h3 {
+            color: var(--accent-1);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            display: block;
+        }
+
+        .experience-item p {
+            color: var(--accent-2);
+            margin-bottom: 1rem;
+            font-weight: 500;
+            display: block;
+        }
+
+        .experience-item ul {
+            list-style: none;
+            padding-left: 1rem;
+            display: block;
+        }
+
+        .experience-item li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+            display: block;
+        }
+
+        .experience-item li:before {
+            content: ">";
+            color: var(--accent-3);
+            position: absolute;
+            left: 0;
+        }
+
+        .experience-item:hover {
+            transform: translateX(5px);
+            background: var(--hover-color);
+            border-color: var(--accent-2);
+        }
+
+        .contact-info {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-top: 1rem;
+        }
+
+        .contact-info a {
+            color: var(--text-color);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            background: var(--secondary-color);
+            border: 1px solid var(--accent-3);
+        }
+
+        .contact-info a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            background: var(--accent-2);
+            border-color: var(--accent-2);
+        }
+
+        .education-item {
+            margin-bottom: 1.5rem;
+        }
+
+        .education-item h3 {
+            color: var(--accent-1);
+            margin-bottom: 0.5rem;
+        }
+
+        .certification-item {
+            margin-bottom: 1rem;
+        }
+
+        .publication-item {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            background: var(--light-bg);
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            border: 1px solid var(--accent-3);
+        }
+
+        .publication-item:hover {
+            transform: translateY(-2px);
+            border-color: var(--accent-2);
+        }
+
+        .publication-item h3 {
+            color: var(--accent-1);
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .publication-item p {
+            color: var(--accent-2);
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .publication-item a {
+            color: var(--accent-2);
+            text-decoration: none;
+            display: inline-block;
+            padding: 0.3rem 0.8rem;
+            border: 1px solid var(--accent-2);
+            border-radius: 4px;
+            transition: all 0.3s ease;
+        }
+
+        .publication-item a:hover {
+            background: var(--accent-2);
+            color: var(--primary-color);
+        }
+
+        .teaching-item {
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background: var(--light-bg);
+            border-radius: 8px;
+            transition: transform 0.3s ease;
+            border-left: 4px solid var(--accent-2);
+        }
+
+        .teaching-item:hover {
+            transform: translateX(5px);
+            border-left-color: var(--accent-1);
+        }
+
+        .teaching-item h3 {
+            color: var(--accent-1);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .teaching-item p {
+            color: var(--text-color);
+            margin-bottom: 0.3rem;
+        }
+
+        .teaching-item p:last-child {
+            color: var(--accent-2);
+            font-weight: 500;
+        }
+
+        @media (max-width: 1024px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+
+            .left-column {
+                position: static;
+            }
+        }
+    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1>SEBASTIÁN ANDRÉS ULLOA QUEZADA</h1>
+        <p>Pricing & Data Scientist/Engineer</p>
+        <div class="contact-info">
+            <a href="mailto:sulloa@sght.cl">📧 Email</a>
+            <a href="https://github.com/sightes">📱 GitHub</a>
+            <a href="https://linkedin.com/in/sightes">💼 LinkedIn</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="left-column">
+            <section class="section">
+                <h2>Sobre Mí</h2>
+                <div class="section-content">
+                    <p>Profesional en ciencia de datos y pricing con más de 7 años de experiencia en el desarrollo e implementación de soluciones analíticas aplicadas al negocio. Mi perfil combina conocimientos avanzados en machine learning, big data e ingeniería de datos con una fuerte orientación a resultados, rentabilidad y toma de decisiones estratégicas. He trabajado en sectores como banca, retail, energía y tecnología, liderando iniciativas que conectan modelos predictivos, visualización de datos y automatización de procesos con objetivos comerciales concretos.</p>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Habilidades</h2>
+                <div class="section-content">
+                    <div class="skills-grid">
+                        <div class="skill-category collapsed">
+                            <h3>Negocio</h3>
+                            <ul>
+                                <li>Estrategia de pricing</li>
+                                <li>Revenue management</li>
+                                <li>Optimización de márgenes y rentabilidad</li>
+                                <li>Gestión de portafolio de productos</li>
+                                <li>Benchmarking de precios</li>
+                                <li>Análisis competitivo</li>
+                                <li>Inteligencia comercial</li>
+                                <li>Insights de negocio</li>
+                                <li>Toma de decisiones basada en datos</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category collapsed">
+                            <h3>Data Science & Machine Learning</h3>
+                            <ul>
+                                <li>Modelado predictivo</li>
+                                <li>Machine learning supervisado/no supervisado</li>
+                                <li>Forecasting</li>
+                                <li>Feature engineering</li>
+                                <li>Validación de modelos</li>
+                                <li>Clustering</li>
+                                <li>Recomendación</li>
+                                <li>Scoring</li>
+                                <li>Automatización de pipelines</li>
+                                <li>Segmentación</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category collapsed">
+                            <h3>Big Data, Cloud & Infraestructura</h3>
+                            <ul>
+                                <li>Procesamiento de datos masivos</li>
+                                <li>Apache Spark</li>
+                                <li>Hadoop</li>
+                                <li>Hive</li>
+                                <li>ETL</li>
+                                <li>Optimización de consultas</li>
+                                <li>Bases de datos distribuidas</li>
+                                <li>Arquitecturas en la nube</li>
+                                <li>Cloud computing (AWS, GCP)</li>
+                                <li>Docker</li>
+                                <li>CI/CD</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category collapsed">
+                            <h3>Desarrollo & DevOps</h3>
+                            <ul>
+                                <li>Python</li>
+                                <li>Matlab</li>
+                                <li>R</li>
+                                <li>JavaScript</li>
+                                <li>APIs REST</li>
+                                <li>Git</li>
+                                <li>GitHub</li>
+                            </ul>
+                        </div>
+                        <div class="skill-category collapsed">
+                            <h3>Business Intelligence & Visualización</h3>
+                            <ul>
+                                <li>Power BI</li>
+                                <li>Tableau</li>
+                                <li>Dash</li>
+                                <li>Looker</li>
+                                <li>Visualización de datos</li>
+                                <li>Storytelling con datos</li>
+                                <li>KPIs</li>
+                                <li>Dashboards interactivos</li>
+                                <li>Análisis exploratorio</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <div class="right-column">
+            <section class="section">
+                <h2>Experiencia</h2>
+                <div class="section-content">
+                    <div class="experience-item">
+                        <h3>Desarrollador Big Data - Apiux</h3>
+                        <p>Noviembre 2024 - Actualmente</p>
+                        <ul>
+                            <li>Optimización de procesamiento de datos masivos utilizando Spark, Hive y Scala.</li>
+                            <li>Desarrollo de soluciones para la gestión tributaria y el análisis fiscal, garantizando la calidad, escalabilidad y eficiencia en entornos distribuidos.</li>
+                        </ul>
+                    </div>
+                    <div class="experience-item">
+                        <h3>Data Scientist - Sodimac</h3>
+                        <p>Octubre 2024 - Febrero 2025</p>
+                        <ul>
+                            <li>Diseño e implementación de modelos de forecasting para optimizar la toma de decisiones estratégicas.</li>
+                            <li>Mejora en la preparación de datos y automatización de procesos mediante la creación de scripts especializados, incrementando la eficiencia operativa.</li>
+                        </ul>
+                    </div>
+                    <div class="experience-item">
+                        <h3>Data Engineer and Data Scientist - Spot^2</h3>
+                        <p>Junio 2022 - Marzo 2025</p>
+                        <ul>
+                            <li>Desarrollo de activos de datos y paneles interactivos para la visualización y análisis eficiente de información.</li>
+                            <li>Construcción de modelos de scraping, scoring, recomendaciones y estimación de precios.</li>
+                        </ul>
+                    </div>
+                    <div class="experience-item">
+                        <h3>Pricing & Data Scientist - Sonepar</h3>
+                        <p>Junio 2022 - Octubre 2024</p>
+                        <ul>
+                            <li>Lideré el análisis y la gestión de precios utilizando inteligencia artificial y big data, optimizando estrategias de precios.</li>
+                            <li>Generé oportunidades de negocio basadas en insights estratégicos derivados de análisis de datos, apoyando decisiones clave para la optimización de precios.</li>
+                        </ul>
+                    </div>
+                    <div class="experience-item">
+                        <h3>Retail Pricing & Revenue Assurance Analyst - Banco BCI</h3>
+                        <p>Agosto 2021 - Julio 2022</p>
+                        <ul>
+                            <li>Diseñé pipelines bancarios para optimizar procesos y mejorar la eficiencia operativa en la industria financiera.</li>
+                            <li>Gestioné la fijación de precios de productos financieros clave, asegurando su rentabilidad, competitividad y contribución al crecimiento sostenible de la empresa.</li>
+                        </ul>
+                    </div>
+                    <div class="experience-item">
+                        <h3>Controller Corporativo de Precios - Banco BCI</h3>
+                        <p>Enero 2019 - Agosto 2021</p>
+                        <ul>
+                            <li>Implementé estrategias de pricing y revenue en productos financieros, integrando datos y visión de negocio para mejorar resultados y eficiencia operativa.</li>
+                        </ul>
+                    </div>
+                    <div class="experience-item">
+                        <h3>Analista de Datos - Banco BCI</h3>
+                        <p>Septiembre 2017 - Diciembre 2018</p>
+                        <ul>
+                            <li>Implementé soluciones de datos y ML orientadas a oportunidades de negocio y gestión de riesgos eficiente.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Experiencia Docente</h2>
+                <div class="section-content collapsed">
+                    <div class="teaching-item">
+                        <h3>Desafío LATAM, Chile</h3>
+                        <p>Tutor Carrera Datascience</p>
+                        <p>Agosto 2022 - Presente</p>
+                    </div>
+                    <div class="teaching-item">
+                        <h3>Universidad Bernardo O'Higgins</h3>
+                        <p>Docente Curso Redes Neuronales y Curso BigData</p>
+                        <p>Mayo 2022 - Marzo 2024</p>
+                    </div>
+                    <div class="teaching-item">
+                        <h3>Coderhouse, Argentina</h3>
+                        <p>Profesor Curso Data Sciences y Curso SQL</p>
+                        <p>Enero 2021 - Abril 2024</p>
+                    </div>
+                    <div class="teaching-item">
+                        <h3>Inacap Sede Ñuñoa (Ex Pérez Rosales), Ñuñoa</h3>
+                        <p>Docente Escuela de Ingeniería</p>
+                        <p>Marzo 2019 - Agosto 2022</p>
+                    </div>
+                    <div class="teaching-item">
+                        <h3>Instituto Profesional Duoc UC, Puente Alto</h3>
+                        <p>Docente Escuela de Ingeniería</p>
+                        <p>Marzo 2015 - Diciembre 2017</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Educación</h2>
+                <div class="section-content collapsed">
+                    <div class="education-item">
+                        <h3>Master en Modelos Avanzados y BigData</h3>
+                        <p>Universidad Bernardo O'Higgins, Santiago - Cursando</p>
+                    </div>
+                    <div class="education-item">
+                        <h3>Candidato a Doctor en Ingeniería Eléctrica</h3>
+                        <p>Universidad de Chile, Santiago - Diciembre 2017</p>
+                    </div>
+                    <div class="education-item">
+                        <h3>Master en Ingeniería</h3>
+                        <p>Universidad de la Frontera, Temuco - Agosto 2010</p>
+                    </div>
+                    <div class="education-item">
+                        <h3>Ingeniero Civil Electrónico</h3>
+                        <p>Universidad de la Frontera, Temuco - Marzo 2010</p>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Publicaciones</h2>
+                <div class="section-content collapsed">
+                    <div class="publication-item">
+                        <h3>Sleep-Spindle Identification on EEG Signals from Polysomnographic Recordings using Correntropy</h3>
+                        <p>EMBC'16</p>
+                        <a href="https://ieeexplore.ieee.org/document/7591540" target="_blank">Ver publicación</a>
+                    </div>
+                    <div class="publication-item">
+                        <h3>Comparison of artificial neural networks and support vector machines for feature selection in electrogastrography signal processing</h3>
+                        <p>EMBC'10</p>
+                        <a href="https://ieeexplore.ieee.org/document/5626362?arnumber=5626362" target="_blank">Ver publicación</a>
+                    </div>
+                    <div class="publication-item">
+                        <h3>Recognition of Nausea Patterns by Multichannel Electrogastrography</h3>
+                        <p>2020</p>
+                        <a href="https://link.springer.com/chapter/10.1007/978-3-030-38021-2_5" target="_blank">Ver publicación</a>
+                    </div>
+                </div>
+            </section>
+
+            <section class="section">
+                <h2>Certificaciones y Estudios Adicionales</h2>
+                <div class="section-content collapsed">
+                    <div class="certification-item">
+                        <h3>Técnicas de construcción de una API REST mediante lenguaje de programación</h3>
+                        <p>Sence/Tecnia (1238028806)</p>
+                    </div>
+                    <div class="certification-item">
+                        <h3>Conceptos avanzados de la programación en Python</h3>
+                        <p>Sence/Tecnia (1238022861)</p>
+                    </div>
+                    <div class="certification-item">
+                        <h3>Diplomado en Educación Vocacional</h3>
+                        <p>Instituto Profesional Duoc UC</p>
+                    </div>
+                    <div class="certification-item">
+                        <h3>Diplomado en Diseño Instruccional</h3>
+                        <p>Instituto Profesional Duoc UC</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script>
+        document.querySelectorAll('.section').forEach(section => {
+            section.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'A' && !e.target.closest('.skill-category')) {
+                    const content = section.querySelector('.section-content');
+                    content.classList.toggle('collapsed');
+                }
+            });
+        });
+
+        document.querySelectorAll('.skill-category').forEach(category => {
+            category.addEventListener('click', (e) => {
+                if (e.target.tagName !== 'A') {
+                    e.stopPropagation();
+                    category.classList.toggle('collapsed');
+                }
+            });
+        });
+    </script>
+</body>
 </html>
